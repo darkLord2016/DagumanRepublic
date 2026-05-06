@@ -273,24 +273,41 @@
     <div class="reveal" style="transition-delay:0.15s">
       <h2 class="form-heading">Send a <em>Message</em></h2>
 
-      <div class="contact-form" id="contactForm">
+      <!-- ╔══════════════════════════════════════════════════════════╗
+           ║  FORMSPREE SETUP — 3 easy steps:                        ║
+           ║  1. Go to https://formspree.io and sign up (free)       ║
+           ║  2. Create a new form → set email to                    ║
+           ║     Dagumanrepublic@gmail.com                           ║
+           ║  3. Replace YOUR_FORMSPREE_ID below with your Form ID   ║
+           ║     e.g. action="https://formspree.io/f/abcd1234"       ║
+           ╚══════════════════════════════════════════════════════════╝ -->
+
+      <form class="contact-form" id="contactForm"
+            action="https://formspree.io/f/YOUR_FORMSPREE_ID"
+            method="POST">
+
+        <!-- Hidden field so Formspree labels emails clearly -->
+        <input type="hidden" name="_subject" value="New message — Daguman Republic Website"/>
+        <!-- Redirect back to same page after submit (Formspree fallback) -->
+        <input type="hidden" name="_next" value="contact.html?sent=true"/>
+
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">First Name</label>
-            <input type="text" class="form-input" placeholder="Given name" id="fname"/>
+            <label class="form-label">First Name *</label>
+            <input type="text" name="first_name" class="form-input" placeholder="Given name" required/>
           </div>
           <div class="form-group">
             <label class="form-label">Last Name</label>
-            <input type="text" class="form-input" placeholder="Family name" id="lname"/>
+            <input type="text" name="last_name" class="form-input" placeholder="Family name"/>
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" class="form-input" placeholder="your@email.com" id="email"/>
+          <label class="form-label">Email Address *</label>
+          <input type="email" name="email" class="form-input" placeholder="your@email.com" required/>
         </div>
         <div class="form-group">
           <label class="form-label">Purpose</label>
-          <select class="form-select" id="purpose">
+          <select name="purpose" class="form-select">
             <option value="" disabled selected>Select a purpose…</option>
             <option>Membership Inquiry</option>
             <option>Heritage Research</option>
@@ -301,17 +318,25 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="form-label">Your Message</label>
-          <textarea class="form-textarea" placeholder="Write your message here…" id="message"></textarea>
+          <label class="form-label">Your Message *</label>
+          <textarea name="message" class="form-textarea" placeholder="Write your message here…" required></textarea>
         </div>
-        <button type="button" class="form-submit" onclick="submitForm()">Send Message →</button>
-        <p class="form-note">✦ We respond within 2–3 days. Daguman Republic honours every inquiry.</p>
-      </div>
+
+        <button type="submit" class="form-submit" id="submitBtn">
+          <span id="btnText">Send Message →</span>
+          <span id="btnLoading" style="display:none;">Sending…</span>
+        </button>
+
+        <p id="formError" style="display:none; color:#8B1A1A; font-size:0.95rem; font-style:italic;"></p>
+        <p class="form-note">✦ Emails are sent to <strong>Dagumanrepublic@gmail.com</strong> — we respond within 2–3 days.</p>
+      </form>
 
       <div class="form-success" id="formSuccess">
         <div class="form-success-icon">⚜️</div>
-        <h3>Message Received</h3>
-        <p>Thank you for reaching out to the Daguman Republic.<br>We will respond within 2–3 days.</p>
+        <h3>Message Sent!</h3>
+        <p>Thank you for reaching out to the Daguman Republic.<br>
+        Your message has been delivered to <strong>Dagumanrepublic@gmail.com</strong>.<br>
+        We will respond within 2–3 days.</p>
       </div>
     </div>
   </div>
@@ -362,19 +387,58 @@
 </footer>
 
 <script>
-  function submitForm() {
-    const fname = document.getElementById('fname').value;
-    const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
-    if (!fname || !email || !message) {
-      alert('Please fill in your name, email, and message before sending.');
-      return;
-    }
-    document.getElementById('contactForm').style.display = 'none';
-    document.getElementById('formSuccess').classList.add('show');
-    window.scrollTo({ top: document.getElementById('formSuccess').offsetTop - 100, behavior: 'smooth' });
+  // ── FORMSPREE AJAX SUBMISSION ──
+  const form = document.getElementById('contactForm');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const btn     = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnLoad = document.getElementById('btnLoading');
+      const errMsg  = document.getElementById('formError');
+
+      // Show loading state
+      btn.disabled = true;
+      btnText.style.display = 'none';
+      btnLoad.style.display = 'inline';
+      errMsg.style.display  = 'none';
+
+      try {
+        const data = new FormData(form);
+        const res  = await fetch(form.action, {
+          method:  'POST',
+          body:    data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          // Success — show thank-you panel
+          form.style.display = 'none';
+          document.getElementById('formSuccess').classList.add('show');
+          window.scrollTo({ top: document.getElementById('formSuccess').offsetTop - 120, behavior: 'smooth' });
+        } else {
+          const json = await res.json();
+          throw new Error(json.errors ? json.errors.map(e => e.message).join(', ') : 'Submission failed.');
+        }
+      } catch (err) {
+        // Show error, re-enable button
+        errMsg.textContent = '⚠ ' + (err.message || 'Something went wrong. Please email us directly at Dagumanrepublic@gmail.com');
+        errMsg.style.display = 'block';
+        btn.disabled = false;
+        btnText.style.display = 'inline';
+        btnLoad.style.display = 'none';
+      }
+    });
   }
 
+  // Show success panel if redirected back with ?sent=true
+  if (window.location.search.includes('sent=true')) {
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+  }
+
+  // ── SCROLL REVEAL ──
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
