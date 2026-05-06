@@ -2,102 +2,902 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Website in Progress - Daguman Republic</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daguman Republic Clan Association Inc.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap');
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --gold: #C9A84C;
+      --gold-light: #E8C97A;
+      --gold-dim: #8B6E2A;
+      --deep: #0D0B07;
+      --dark: #1A1710;
+      --mid: #2A2418;
+      --parchment: #F5EDD6;
+      --cream: #FAF5E8;
+      --text: #E8DFC0;
+      --text-dim: #A89870;
+      --accent: #8B1A1A;
+      --accent-light: #C0392B;
     }
 
-    html, body {
-      height: 100%;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
-      background-color: #FAFAFA;
-      color: #1A1A1A;
+      background-color: var(--deep);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: linear-gradient(to bottom, rgba(13,11,7,0.97), rgba(13,11,7,0.85));
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 64px;
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      padding: 2rem;
-    }
-
-    main {
       text-align: center;
-      max-width: 480px;
+      padding: 8rem 2rem 6rem;
+      position: relative;
+      overflow: hidden;
     }
 
-    .headline {
-      font-size: clamp(2rem, 5vw, 2.75rem);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      color: #1A1A1A;
-      line-height: 1.2;
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(139,110,42,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 80% 20%, rgba(139,26,26,0.08) 0%, transparent 60%),
+        linear-gradient(to bottom, #0D0B07 0%, #1A1710 50%, #0D0B07 100%);
     }
 
-    .dots span {
-      display: inline-block;
-      animation: blink 1.4s infinite both;
-      opacity: 0;
+    /* decorative lines */
+    .hero-bg::before, .hero-bg::after {
+      content: '';
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      border: 1px solid rgba(201,168,76,0.15);
+      border-radius: 50%;
+    }
+    .hero-bg::before { width: 700px; height: 700px; top: 50%; transform: translate(-50%,-50%); }
+    .hero-bg::after  { width: 500px; height: 500px; top: 50%; transform: translate(-50%,-50%); }
+
+    .hero-content { position: relative; z-index: 2; max-width: 860px; }
+
+    .hero-ornament {
+      font-size: 1.2rem;
+      color: var(--gold-dim);
+      letter-spacing: 0.5em;
+      margin-bottom: 1.5rem;
+      animation: fadeDown 1s ease both;
     }
 
-    .dots span:nth-child(1) { animation-delay: 0s; }
-    .dots span:nth-child(2) { animation-delay: 0.2s; }
-    .dots span:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes blink {
-      0%, 80%, 100% { opacity: 0; }
-      40%            { opacity: 1; }
+    .hero-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(2.8rem, 7vw, 6rem);
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1.05;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 60px rgba(201,168,76,0.4), 0 2px 4px rgba(0,0,0,0.8);
+      animation: fadeDown 1s 0.1s ease both;
     }
 
-    .subline {
-      margin-top: 1.25rem;
-      font-size: 1rem;
+    .hero-sub {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.85rem, 2vw, 1.1rem);
       font-weight: 400;
-      color: #6B6B6B;
-      line-height: 1.6;
+      color: var(--gold-dim);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      animation: fadeDown 1s 0.2s ease both;
     }
 
-    .divider {
-      width: 40px;
-      height: 2px;
-      background-color: #E0E0E0;
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       margin: 2rem auto;
-      border: none;
+      max-width: 400px;
+      animation: fadeDown 1s 0.3s ease both;
+    }
+    .hero-divider span { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold-dim), transparent); }
+    .hero-divider em { color: var(--gold); font-style: normal; font-size: 1.2rem; }
+
+    .hero-tagline {
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--parchment);
+      margin-bottom: 0.5rem;
+      animation: fadeDown 1s 0.35s ease both;
     }
 
-    footer {
-      position: fixed;
-      bottom: 2rem;
-      left: 0;
-      right: 0;
-      text-align: center;
+    .hero-quote {
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      color: var(--text-dim);
+      font-style: italic;
+      margin-bottom: 2.5rem;
+      animation: fadeDown 1s 0.4s ease both;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeDown 1s 0.5s ease both;
+    }
+
+    .btn-primary {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2.5rem;
+      background: linear-gradient(135deg, var(--gold-dim), var(--gold), var(--gold-dim));
+      color: var(--deep);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 4px 20px rgba(201,168,76,0.3);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+      box-shadow: 0 6px 30px rgba(201,168,76,0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.85rem 2.5rem;
+      background: transparent;
+      color: var(--gold);
+      border: 1px solid rgba(201,168,76,0.5);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-secondary:hover {
+      background: rgba(201,168,76,0.08);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-hashtag {
+      margin-top: 3rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      color: var(--text-dim);
+      animation: fadeDown 1s 0.6s ease both;
+    }
+    .hero-hashtag span { color: var(--gold-dim); }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 6rem 5vw;
+    }
+
+    .section-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      color: var(--gold);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .gold-rule {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .gold-rule span { flex: 1; max-width: 80px; height: 1px; background: var(--gold-dim); }
+    .gold-rule em { color: var(--gold); font-style: normal; }
+
+    /* ── ABOUT / ORIGIN ── */
+    #about { background: var(--dark); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .generation-block {
+      margin-bottom: 2.5rem;
+    }
+
+    .gen-title {
+      font-family: 'Cinzel', serif;
       font-size: 0.8rem;
-      color: #BBBBBB;
-      letter-spacing: 0.01em;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-left: 3px solid var(--gold-dim);
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .name-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.5rem;
+    }
+    .name-list li {
+      font-size: 1rem;
+      color: var(--parchment);
+      position: relative;
+      padding-left: 1rem;
+    }
+    .name-list li::before {
+      content: '·';
+      position: absolute;
+      left: 0;
+      color: var(--gold-dim);
+    }
+
+    .heritage-text {
+      font-size: 1.1rem;
+      color: var(--text);
+      line-height: 1.9;
+    }
+    .heritage-text p { margin-bottom: 1.25rem; }
+    .heritage-quote {
+      border-left: 3px solid var(--gold-dim);
+      padding: 1rem 1.5rem;
+      margin: 2rem 0;
+      font-style: italic;
+      color: var(--gold-light);
+      font-size: 1.15rem;
+      background: rgba(201,168,76,0.04);
+    }
+
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .pillar-card {
+      background: rgba(201,168,76,0.05);
+      border: 1px solid rgba(201,168,76,0.15);
+      padding: 1rem 1.25rem;
+      text-align: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      color: var(--parchment);
+      transition: all 0.3s;
+    }
+    .pillar-card:hover {
+      background: rgba(201,168,76,0.1);
+      border-color: var(--gold-dim);
+      color: var(--gold-light);
+    }
+
+    /* ── MEMBERSHIP ── */
+    #membership {
+      background: linear-gradient(180deg, #0D0B07 0%, #1A1710 50%, #0D0B07 100%);
+      position: relative;
+    }
+    #membership::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(139,26,26,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .membership-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+
+    .tiers {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .tier-card {
+      background: rgba(201,168,76,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.4s;
+    }
+    .tier-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+    }
+    .tier-card:hover {
+      background: rgba(201,168,76,0.08);
+      border-color: var(--gold-dim);
+      transform: translateY(-4px);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4), 0 0 30px rgba(201,168,76,0.1);
+    }
+
+    .tier-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+    }
+    .tier-desc {
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      min-height: 4rem;
+    }
+    .tier-price {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.4rem;
+      color: var(--gold-light);
+    }
+    .tier-price small {
+      font-family: 'EB Garamond', serif;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      display: block;
+      margin-top: 0.25rem;
+    }
+    .tier-badge {
+      display: inline-block;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      background: rgba(201,168,76,0.15);
+      color: var(--gold);
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .council-section { margin-top: 3rem; }
+    .council-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.3em;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .council-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .council-card {
+      background: rgba(201,168,76,0.04);
+      border: 1px solid rgba(201,168,76,0.12);
+      padding: 1rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    .council-card:hover {
+      background: rgba(201,168,76,0.09);
+      border-color: rgba(201,168,76,0.3);
+    }
+    .council-name {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--parchment);
+      margin-bottom: 0.25rem;
+    }
+    .council-role {
+      font-size: 0.8rem;
+      color: var(--gold-dim);
+      font-style: italic;
+    }
+
+    .cta-box {
+      margin-top: 3.5rem;
+      border: 1px solid rgba(201,168,76,0.25);
+      padding: 2.5rem;
+      text-align: center;
+      background: rgba(201,168,76,0.03);
+      position: relative;
+    }
+    .cta-box::before, .cta-box::after {
+      content: '⚜';
+      position: absolute;
+      top: -0.65rem;
+      font-size: 1.2rem;
+      color: var(--gold-dim);
+      background: var(--dark);
+      padding: 0 0.5rem;
+    }
+    .cta-box::before { left: 2rem; }
+    .cta-box::after  { right: 2rem; }
+    .cta-box p { color: var(--text-dim); margin-bottom: 1.5rem; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--dark); }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .contact-info p {
+      font-size: 1rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+    }
+
+    .contact-detail {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(201,168,76,0.3);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.9rem;
+      color: var(--gold);
+    }
+    .contact-item-text {
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    .contact-item-text a {
+      color: var(--gold-dim);
+      text-decoration: none;
+    }
+    .contact-item-text a:hover { color: var(--gold); }
+
+    .contact-quote {
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--gold-dim);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding-top: 1.5rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .form-input, .form-textarea {
+      background: rgba(201,168,76,0.04);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--text);
+      font-family: 'EB Garamond', serif;
+      font-size: 1rem;
+      padding: 0.75rem 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+      width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--gold-dim);
+      background: rgba(201,168,76,0.07);
+    }
+    .form-textarea { resize: vertical; min-height: 130px; }
+
+    .form-note {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      border-top: 1px solid rgba(201,168,76,0.2);
+      padding: 3rem 5vw;
+      text-align: center;
+    }
+    .footer-brand {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.2rem;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .footer-tagline {
+      font-style: italic;
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-ancestors {
+      font-size: 0.8rem;
+      color: var(--gold-dim);
+      max-width: 700px;
+      margin: 0 auto 1.5rem;
+      line-height: 1.8;
+    }
+    .footer-copy {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--text-dim);
+    }
+    .footer-hash {
+      font-size: 0.8rem;
+      color: var(--gold-dim);
+      margin-top: 0.5rem;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .tiers { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <main>
-    <h1 class="headline">
-      Website in Progress<span class="dots"><span>.</span><span>.</span><span>.</span></span>
-    </h1>
-    <hr class="divider" />
-    <p class="subline">Something great is on its way. Check back soon.</p>
-  </main>
+  <!-- NAV -->
+  <nav>
+    <a href="#home" class="nav-brand">DAGUMAN REPUBLIC</a>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About & Origin</a></li>
+      <li><a href="#membership">Membership</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-ornament">⚜ &nbsp; E S T A B L I S H E D &nbsp; ⚜</p>
+      <h1 class="hero-title">DAGUMAN<br>REPUBLIC</h1>
+      <p class="hero-sub">Clan Association Inc.</p>
+
+      <div class="hero-divider">
+        <span></span>
+        <em>✦</em>
+        <span></span>
+      </div>
+
+      <p class="hero-tagline">Our Roots Run Deep · Our Love Runs Deeper</p>
+      <p class="hero-quote">"One Clan, One Legacy — Honouring the past, building the future."</p>
+
+      <div class="hero-ctas">
+        <a href="#about" class="btn-primary">Discover Our Story</a>
+        <a href="#membership" class="btn-secondary">Join the Republic</a>
+      </div>
+
+      <p class="hero-hashtag">
+        <span>#DDRYourLifeOurStory</span> — A clan founded on honour, unity, and deep cultural heritage.<br>
+        From the highlands to the new generation, the Daguman spirit thrives.
+      </p>
+    </div>
+  </section>
+
+  <!-- ABOUT & ORIGIN -->
+  <section id="about">
+    <span class="section-label">Our Family Origin & Legacy</span>
+    <h2 class="section-title">The Daguman Heritage</h2>
+    <div class="gold-rule"><span></span><em>⚜</em><span></span></div>
+
+    <div class="about-grid">
+      <!-- Left: generations & pillars -->
+      <div>
+        <div class="generation-block">
+          <p class="gen-title">First Generation (1900–2000)</p>
+          <ul class="name-list">
+            <li>Salvador Daguam</li>
+            <li>Manuel Daguman</li>
+            <li>Cayetano Daguman</li>
+            <li>Timoteo Daguman</li>
+            <li>Lucas Daguman</li>
+            <li>Teodolo Dag-uman</li>
+            <li>Candida Daguman</li>
+          </ul>
+        </div>
+
+        <div class="generation-block">
+          <p class="gen-title">Second Generation Stewards</p>
+          <ul class="name-list">
+            <li>Fortunato Daguman</li>
+            <li>Donato Daguman</li>
+            <li>Alejandro Daguman</li>
+            <li>Cerila Daguman</li>
+            <li>Donato O. Daguman</li>
+          </ul>
+        </div>
+
+        <div class="generation-block">
+          <p class="gen-title">Pillars of the Clan</p>
+          <div class="pillars-grid">
+            <div class="pillar-card">Miguel Daguman</div>
+            <div class="pillar-card">Atty Hugo Daguman Sr.</div>
+            <div class="pillar-card">Florintino Daguman</div>
+            <div class="pillar-card">Serpio Dag-uman</div>
+            <div class="pillar-card">Atty Jose Daguman Sr.</div>
+            <div class="pillar-card">Mr Hugo Daguman II</div>
+            <div class="pillar-card">Fermin Daguman</div>
+            <div class="pillar-card">Sonny Daguman</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: heritage text -->
+      <div class="heritage-text">
+        <p>Originating from the northern highlands, the Daguman Republic traces its roots to visionary leaders who cultivated unity, justice, and community. The First Generation — Salvador Daguam, Manuel Daguman, Cayetano Daguman, Timoteo Daguman, Lucas Daguman, and Teodolo Dag-uman — laid the foundation of resilience and kinship.</p>
+
+        <p>Through generations, the Daguman name became synonymous with honour. Today, the clan association continues to gather members worldwide, celebrating our shared ancestry, upholding traditions, and forging new paths for generations to come.</p>
+
+        <div class="heritage-quote">
+          "Our roots run deep, our story moves forward."
+        </div>
+
+        <p>The legacy entrusted to us by our ancestors is not merely a name — it is a covenant. As stewards of the Daguman heritage, every member carries forward the spirit of unity, justice, and kinship that defined our forebears.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section id="membership">
+    <div class="membership-inner">
+      <span class="section-label">Become a Member</span>
+      <h2 class="section-title">Join the Republic</h2>
+      <div class="gold-rule"><span></span><em>⚜</em><span></span></div>
+      <p style="max-width:640px; color:var(--text-dim); margin-bottom:3rem;">
+        Join the Daguman Clan Association — connect with relatives, celebrate heritage, and help preserve our story. Open to all descendants and allies who share our values.
+      </p>
+
+      <div class="tiers">
+        <!-- Heritage -->
+        <div class="tier-card">
+          <div class="tier-badge">Founding Lineage</div>
+          <div class="tier-name">Heritage Member</div>
+          <div class="tier-desc">Open to direct descendants of the Daguman lineage. Full voting rights, access to clan assemblies, and family archives.</div>
+          <div class="tier-price">$25 <small>Annual Contribution</small></div>
+        </div>
+        <!-- Associate -->
+        <div class="tier-card">
+          <div class="tier-badge">Allied Kin</div>
+          <div class="tier-name">Associate Member</div>
+          <div class="tier-desc">Spouses, in-laws, and friends of the clan. Participate in events and cultural activities, support the legacy.</div>
+          <div class="tier-price">$15 <small>Annual Contribution</small></div>
+        </div>
+        <!-- Elder -->
+        <div class="tier-card">
+          <div class="tier-badge">By Nomination</div>
+          <div class="tier-name">Elder Council</div>
+          <div class="tier-desc">Honorary lifetime membership for leaders who have served the association with distinction.</div>
+          <div class="tier-price">Legacy Circle <small>Lifetime Honorary</small></div>
+        </div>
+      </div>
+
+      <!-- Council -->
+      <div class="council-section">
+        <p class="council-title">⚜️ &nbsp; Clan Leadership & Core Council &nbsp; ⚜️</p>
+        <div class="council-grid">
+          <div class="council-card"><div class="council-name">Mira D S</div><div class="council-role">President</div></div>
+          <div class="council-card"><div class="council-name">Josefe</div><div class="council-role">Vice President</div></div>
+          <div class="council-card"><div class="council-name">Emelie</div><div class="council-role">Secretary</div></div>
+          <div class="council-card"><div class="council-name">Joyce</div><div class="council-role">Public</div></div>
+          <div class="council-card"><div class="council-name">Hugo Boss III</div><div class="council-role">Treasurer</div></div>
+          <div class="council-card"><div class="council-name">Richard</div><div class="council-role">Auditor</div></div>
+          <div class="council-card"><div class="council-name">Tess</div><div class="council-role">Compliance</div></div>
+          <div class="council-card"><div class="council-name">Janet</div><div class="council-role">Core Member</div></div>
+          <div class="council-card"><div class="council-name">Verjing</div><div class="council-role">Core Member</div></div>
+          <div class="council-card"><div class="council-name">Eva</div><div class="council-role">Core Member</div></div>
+          <div class="council-card"><div class="council-name">Elina S D</div><div class="council-role">Core Member</div></div>
+          <div class="council-card"><div class="council-name">Alphie</div><div class="council-role">Core Member</div></div>
+          <div class="council-card"><div class="council-name">Err Dags</div><div class="council-role">Core Member</div></div>
+          <div class="council-card"><div class="council-name">Joseph D</div><div class="council-role">Core Member</div></div>
+          <div class="council-card"><div class="council-name">Harrold</div><div class="council-role">Core Member</div></div>
+        </div>
+        <p style="text-align:center; margin-top:1.5rem; font-size:0.9rem; color:var(--text-dim); font-style:italic;">
+          These dedicated officers and core volunteers guide the Daguman Republic.
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="cta-box">
+        <h3 style="font-family:'Cinzel',serif; font-size:1.1rem; color:var(--gold); margin-bottom:1rem; letter-spacing:0.15em;">Ready to Register?</h3>
+        <p>Fill out the interest form or email us directly. All applications are reviewed by the Membership Committee.</p>
+        <a href="#contact" class="btn-primary">Request Membership Form</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <span class="section-label">Connect With the Republic</span>
+    <h2 class="section-title">Official Correspondence</h2>
+    <div class="gold-rule"><span></span><em>⚜</em><span></span></div>
+
+    <div class="contact-inner">
+      <!-- Info -->
+      <div class="contact-info">
+        <p>"Our Roots Run Deep, Our Love Runs Deeper" — Send us a message. We'd love to hear from family and friends.</p>
+
+        <div class="contact-detail">
+          <div class="contact-item">
+            <div class="contact-icon">✉</div>
+            <div class="contact-item-text">
+              <strong style="color:var(--gold-dim); font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em; display:block; margin-bottom:0.2rem;">EMAIL</strong>
+              <a href="mailto:Dagumanrepublic@gmail.com">Dagumanrepublic@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">⌂</div>
+            <div class="contact-item-text">
+              <strong style="color:var(--gold-dim); font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em; display:block; margin-bottom:0.2rem;">HALLS</strong>
+              Republic Hall, Daguman Heritage Centre<br>
+              Valenzuela City · Manila Liaison · Mindanao · Cebu City
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">f</div>
+            <div class="contact-item-text">
+              <strong style="color:var(--gold-dim); font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em; display:block; margin-bottom:0.2rem;">FACEBOOK</strong>
+              <a href="https://fb.com/DagumanRepublicOfficial" target="_blank">/DagumanRepublicOfficial</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">◎</div>
+            <div class="contact-item-text">
+              <strong style="color:var(--gold-dim); font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em; display:block; margin-bottom:0.2rem;">INSTAGRAM</strong>
+              <a href="https://instagram.com/daguman.republic" target="_blank">@daguman.republic</a>
+            </div>
+          </div>
+        </div>
+
+        <p class="contact-quote">"Our Roots Run Deep, Our Love Runs Deeper."</p>
+      </div>
+
+      <!-- Form -->
+      <div>
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" placeholder="Full name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input type="text" class="form-input" placeholder="Membership inquiry, general message…" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Write your message here…"></textarea>
+          </div>
+          <button type="button" class="btn-primary" onclick="alert('Thank you! We will respond within 2–3 days.')">Send Message</button>
+          <p class="form-note">✦ We respond within 2–3 days. Daguman Republic honours every inquiry.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    &copy; 2026 Daguman Republic. All rights reserved.
+    <p class="footer-brand">Daguman Republic</p>
+    <p class="footer-tagline">"Our Roots Run Deep, Our Love Runs Deeper"</p>
+    <p class="footer-ancestors">
+      Honouring our First Generation ancestors: Salvador Daguam, Manuel Daguman, Cayetano Daguman,<br>
+      Timoteo Daguman, Lucas Daguman, Teodolo Dag-uman — and all who built our legacy.
+    </p>
+    <p class="footer-copy">© 2025 Daguman Republic Clan Association Inc. — All Rights Reserved.</p>
+    <p class="footer-hash">#DDRYourLifeOurStory | One Clan, One Spirit</p>
   </footer>
 
 </body>
