@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daguman Republic — Membership</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory: #FDFAF4; --cream: #F5EFE0; --warm: #EDE3CC;
+      --gold: #B8862A; --gold-rich: #D4A030; --gold-pale: #E8C97A;
+      --brown: #6B4E1F; --dark: #2C1F0E; --red: #8B1A1A;
+      --text: #3D2B10; --text-mid: #7A6040; --text-light: #A08050;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--ivory); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:200;
+      height:70px; display:flex; align-items:center; justify-content:space-between;
+      padding: 0 6vw; background: rgba(253,250,244,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184,134,42,0.2);
+    }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:900; color:var(--gold); text-decoration:none; letter-spacing:0.08em; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { font-family:'Montserrat',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-mid); text-decoration:none; transition:color 0.25s; position:relative; }
+    .nav-links a.active, .nav-links a:hover { color:var(--gold); }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1.5px; background:var(--gold-rich); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+    .nav-links a.active::after, .nav-links a:hover::after { transform:scaleX(1); }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 140px 6vw 80px;
+      background: linear-gradient(135deg, #F5EFE0 0%, #FDFAF4 100%);
+      position:relative; overflow:hidden;
+    }
+    .page-hero::before {
+      content:'';
+      position:absolute; top:-80px; right:-80px;
+      width:500px; height:500px; border-radius:50%;
+      background: radial-gradient(circle, rgba(184,134,42,0.12) 0%, transparent 70%);
+    }
+    .page-hero-eyebrow {
+      font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700;
+      letter-spacing:0.5em; text-transform:uppercase; color:var(--gold-rich);
+      display:flex; align-items:center; gap:1rem; margin-bottom:1rem;
+      animation: fadeUp 0.7s ease both;
+    }
+    .page-hero-eyebrow::before { content:''; width:40px; height:1px; background:var(--gold-rich); }
+    .page-hero h1 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.5rem,7vw,5.5rem); font-weight:900; line-height:1.05;
+      color:var(--dark); position:relative; z-index:1;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .page-hero h1 em { font-style:italic; color:var(--gold); }
+    .page-hero-sub {
+      font-size:1.25rem; color:var(--text-mid); margin-top:1.25rem;
+      max-width:560px; line-height:1.8;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    /* TIERS */
+    .tiers-section { padding: 6rem 6vw; background: white; }
+    .section-label { font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.5em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:0.5rem; }
+    .section-heading { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; color:var(--dark); margin-bottom:3rem; }
+
+    .tiers-grid {
+      display:grid; grid-template-columns: repeat(3,1fr);
+      gap:2rem; max-width:1100px;
+    }
+    .tier-card {
+      border: 1px solid rgba(184,134,42,0.2);
+      padding: 2.5rem 2rem;
+      position: relative; overflow: hidden;
+      transition: all 0.4s; background: var(--ivory);
+    }
+    .tier-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:4px;
+      background: linear-gradient(to right, var(--gold-pale), var(--gold), var(--gold-pale));
+      transform: scaleX(0); transform-origin:left; transition:transform 0.4s;
+    }
+    .tier-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(184,134,42,0.2); border-color:var(--gold); }
+    .tier-card:hover::before { transform: scaleX(1); }
+
+    .tier-badge {
+      display:inline-block; font-family:'Montserrat',sans-serif; font-size:0.58rem; font-weight:700;
+      letter-spacing:0.3em; text-transform:uppercase;
+      background: var(--cream); color:var(--gold); border:1px solid rgba(184,134,42,0.3);
+      padding: 0.2rem 0.75rem; margin-bottom:1.25rem;
+    }
+    .tier-name {
+      font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900;
+      color:var(--dark); margin-bottom:1rem;
+    }
+    .tier-desc {
+      font-size:1rem; color:var(--text-mid); line-height:1.75;
+      margin-bottom:1.75rem; min-height:80px;
+    }
+    .tier-price {
+      font-family:'Playfair Display',serif; font-size:2rem; font-weight:900; color:var(--gold);
+    }
+    .tier-price small { display:block; font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-light); margin-top:0.25rem; }
+    .tier-features { list-style:none; margin-top:1.5rem; display:flex; flex-direction:column; gap:0.6rem; }
+    .tier-features li {
+      font-size:0.95rem; color:var(--text-mid);
+      display:flex; align-items:center; gap:0.6rem;
+    }
+    .tier-features li::before { content:'✓'; color:var(--gold); font-weight:700; font-size:0.9rem; flex-shrink:0; }
+
+    /* COUNCIL */
+    .council-section { padding: 6rem 6vw; background: var(--cream); }
+    .council-intro {
+      display:grid; grid-template-columns:1fr 1fr; gap:4rem; max-width:1100px; margin-bottom:3rem;
+    }
+    .council-text h2 { font-family:'Playfair Display',serif; font-size:2.5rem; font-weight:900; color:var(--dark); margin-bottom:1rem; }
+    .council-text p { font-size:1.1rem; color:var(--text-mid); line-height:1.8; }
+
+    .council-grid {
+      display:grid; grid-template-columns: repeat(auto-fill, minmax(170px,1fr));
+      gap:1rem; max-width:1100px;
+    }
+    .council-card {
+      background:white; padding:1.5rem 1.25rem;
+      border-bottom:3px solid transparent; text-align:center;
+      transition:all 0.3s;
+    }
+    .council-card:hover { border-bottom-color:var(--gold); transform:translateY(-4px); box-shadow:0 8px 25px rgba(184,134,42,0.15); }
+    .council-card-avatar {
+      width:56px; height:56px; border-radius:50%;
+      background: linear-gradient(135deg, var(--gold-pale), var(--gold));
+      display:flex; align-items:center; justify-content:center;
+      font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:900;
+      color:white; margin: 0 auto 0.75rem;
+    }
+    .council-card-name { font-family:'Playfair Display',serif; font-size:0.95rem; font-weight:700; color:var(--dark); margin-bottom:0.25rem; }
+    .council-card-role { font-family:'Montserrat',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--gold); }
+
+    /* CTA */
+    .cta-section {
+      padding: 6rem 6vw; background: var(--dark); text-align:center; position:relative; overflow:hidden;
+    }
+    .cta-section::before {
+      content:'';
+      position:absolute; inset:0;
+      background: repeating-linear-gradient(-45deg,transparent,transparent 60px,rgba(184,134,42,0.04) 60px,rgba(184,134,42,0.04) 120px);
+    }
+    .cta-inner { position:relative; z-index:1; max-width:640px; margin:0 auto; }
+    .cta-inner h2 { font-family:'Playfair Display',serif; font-size:clamp(2rem,5vw,3.5rem); font-weight:900; color:var(--gold-pale); margin-bottom:1rem; }
+    .cta-inner p { font-size:1.15rem; font-style:italic; color:rgba(255,255,255,0.7); line-height:1.8; margin-bottom:2.5rem; }
+    .btn-gold { font-family:'Montserrat',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; text-decoration:none; padding:1rem 3rem; background:var(--gold); color:white; border:2px solid var(--gold); cursor:pointer; transition:all 0.3s; display:inline-block; }
+    .btn-gold:hover { background:var(--gold-rich); border-color:var(--gold-rich); transform:translateY(-3px); box-shadow:0 8px 25px rgba(184,134,42,0.4); }
+
+    footer { background:var(--dark); border-top:1px solid rgba(184,134,42,0.15); color:rgba(255,255,255,0.6); padding:3rem 6vw; text-align:center; }
+    .footer-brand { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; color:var(--gold-pale); margin-bottom:0.5rem; }
+    .footer-links { display:flex; justify-content:center; gap:2rem; list-style:none; margin:1rem 0; }
+    .footer-links a { font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); text-decoration:none; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--gold-pale); }
+    .footer-copy { font-size:0.85rem; margin-top:1rem; }
+    .footer-hash { color:var(--gold); font-size:0.85rem; margin-top:0.4rem; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity:0; transform:translateY(25px); transition:opacity 0.7s, transform 0.7s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media (max-width:900px) {
+      .tiers-grid { grid-template-columns:1fr; }
+      .council-intro { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">DAGUMAN REPUBLIC</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About & Origin</a></li>
+    <li><a href="membership.html" class="active">Membership</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Become a Member</p>
+  <h1>Join the <em>Republic</em></h1>
+  <p class="page-hero-sub">Connect with relatives, celebrate heritage, and help preserve our story. Open to all descendants and allies who share our values.</p>
+</div>
+
+<!-- TIERS -->
+<section class="tiers-section">
+  <span class="section-label">Membership Tiers</span>
+  <h2 class="section-heading">Choose Your Place in the Clan</h2>
+
+  <div class="tiers-grid">
+    <div class="tier-card reveal">
+      <span class="tier-badge">Founding Lineage</span>
+      <h3 class="tier-name">Heritage Member</h3>
+      <p class="tier-desc">Open to direct descendants of the Daguman lineage. Full voting rights, access to clan assemblies, and family archives.</p>
+      <div class="tier-price">$25 <small>Annual Contribution</small></div>
+      <ul class="tier-features">
+        <li>Full voting rights</li>
+        <li>Access to clan assemblies</li>
+        <li>Family archive access</li>
+        <li>Heritage certificate</li>
+      </ul>
+    </div>
+    <div class="tier-card reveal" style="transition-delay:0.15s">
+      <span class="tier-badge">Allied Kin</span>
+      <h3 class="tier-name">Associate Member</h3>
+      <p class="tier-desc">Spouses, in-laws, and friends of the clan. Participate in events and cultural activities, support the legacy.</p>
+      <div class="tier-price">$15 <small>Annual Contribution</small></div>
+      <ul class="tier-features">
+        <li>Cultural event participation</li>
+        <li>Community newsletter</li>
+        <li>Support the legacy</li>
+        <li>Associate certificate</li>
+      </ul>
+    </div>
+    <div class="tier-card reveal" style="transition-delay:0.3s">
+      <span class="tier-badge">By Nomination Only</span>
+      <h3 class="tier-name">Elder Council</h3>
+      <p class="tier-desc">Honorary lifetime membership for leaders who have served the association with distinction and vision.</p>
+      <div class="tier-price">Legacy <small>Lifetime Honorary</small></div>
+      <ul class="tier-features">
+        <li>Lifetime recognition</li>
+        <li>Advisory council seat</li>
+        <li>Legacy Circle membership</li>
+        <li>By nomination only</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- COUNCIL -->
+<section class="council-section">
+  <div class="council-intro reveal">
+    <div class="council-text">
+      <span class="section-label">Leadership</span>
+      <h2>⚜️ Clan Leadership<br>&amp; Core Council ⚜️</h2>
+    </div>
+    <div>
+      <p>These dedicated officers and core volunteers guide the Daguman Republic with honour and vision. Each member of the council is committed to preserving our heritage and strengthening our community.</p>
+    </div>
+  </div>
+
+  <div class="council-grid">
+    <div class="council-card reveal"><div class="council-card-avatar">M</div><div class="council-card-name">Mira D S</div><div class="council-card-role">President</div></div>
+    <div class="council-card reveal" style="transition-delay:.05s"><div class="council-card-avatar">J</div><div class="council-card-name">Josefe</div><div class="council-card-role">Vice President</div></div>
+    <div class="council-card reveal" style="transition-delay:.1s"><div class="council-card-avatar">E</div><div class="council-card-name">Emelie</div><div class="council-card-role">Secretary</div></div>
+    <div class="council-card reveal" style="transition-delay:.15s"><div class="council-card-avatar">J</div><div class="council-card-name">Joyce</div><div class="council-card-role">Public</div></div>
+    <div class="council-card reveal" style="transition-delay:.2s"><div class="council-card-avatar">H</div><div class="council-card-name">Hugo Boss III</div><div class="council-card-role">Treasurer</div></div>
+    <div class="council-card reveal" style="transition-delay:.25s"><div class="council-card-avatar">R</div><div class="council-card-name">Richard</div><div class="council-card-role">Auditor</div></div>
+    <div class="council-card reveal" style="transition-delay:.3s"><div class="council-card-avatar">T</div><div class="council-card-name">Tess</div><div class="council-card-role">Compliance</div></div>
+    <div class="council-card reveal" style="transition-delay:.35s"><div class="council-card-avatar">J</div><div class="council-card-name">Janet</div><div class="council-card-role">Core Member</div></div>
+    <div class="council-card reveal" style="transition-delay:.4s"><div class="council-card-avatar">V</div><div class="council-card-name">Verjing</div><div class="council-card-role">Core Member</div></div>
+    <div class="council-card reveal" style="transition-delay:.45s"><div class="council-card-avatar">E</div><div class="council-card-name">Eva</div><div class="council-card-role">Core Member</div></div>
+    <div class="council-card reveal" style="transition-delay:.5s"><div class="council-card-avatar">E</div><div class="council-card-name">Elina S D</div><div class="council-card-role">Core Member</div></div>
+    <div class="council-card reveal" style="transition-delay:.55s"><div class="council-card-avatar">A</div><div class="council-card-name">Alphie</div><div class="council-card-role">Core Member</div></div>
+    <div class="council-card reveal" style="transition-delay:.6s"><div class="council-card-avatar">E</div><div class="council-card-name">Err Dags</div><div class="council-card-role">Core Member</div></div>
+    <div class="council-card reveal" style="transition-delay:.65s"><div class="council-card-avatar">J</div><div class="council-card-name">Joseph D</div><div class="council-card-role">Core Member</div></div>
+    <div class="council-card reveal" style="transition-delay:.7s"><div class="council-card-avatar">H</div><div class="council-card-name">Harrold</div><div class="council-card-role">Core Member</div></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner reveal">
+    <h2>Ready to Register?</h2>
+    <p>Fill out the interest form or email us directly. All applications are reviewed by the Membership Committee.</p>
+    <a href="contact.html" class="btn-gold">Request Membership Form</a>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-brand">Daguman Republic</p>
+  <p style="font-style:italic; margin:0.25rem 0 1rem;">"Our Roots Run Deep, Our Love Runs Deeper"</p>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Daguman Republic Clan Association Inc. — All Rights Reserved.</p>
+  <p class="footer-hash">#DDRYourLifeOurStory | One Clan, One Spirit</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

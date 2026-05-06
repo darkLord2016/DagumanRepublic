@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daguman Republic — About & Origin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory: #FDFAF4;
+      --cream: #F5EFE0;
+      --warm: #EDE3CC;
+      --gold: #B8862A;
+      --gold-rich: #D4A030;
+      --gold-pale: #E8C97A;
+      --brown: #6B4E1F;
+      --dark: #2C1F0E;
+      --red: #8B1A1A;
+      --text: #3D2B10;
+      --text-mid: #7A6040;
+      --text-light: #A08050;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--ivory); color: var(--text); font-family: 'Cormorant Garamond', Georgia, serif; overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 70px; display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw;
+      background: rgba(253,250,244,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184,134,42,0.2);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 900; color: var(--gold); text-decoration: none; letter-spacing: 0.08em; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-family: 'Montserrat', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; transition: color 0.25s; position: relative; }
+    .nav-links a.active, .nav-links a:hover { color: var(--gold); }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 1.5px; background: var(--gold-rich); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+    .nav-links a.active::after, .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 140px 6vw 80px;
+      background: linear-gradient(135deg, #FDFAF4 0%, #F0E6CC 100%);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::after {
+      content: 'DAGUMAN';
+      position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(6rem, 18vw, 16rem);
+      font-weight: 900; color: rgba(184,134,42,0.06);
+      white-space: nowrap; pointer-events: none; user-select: none;
+      letter-spacing: 0.05em;
+    }
+    .page-hero-eyebrow {
+      font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold-rich);
+      display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;
+      animation: fadeUp 0.7s ease both;
+    }
+    .page-hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--gold-rich); }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      font-weight: 900; line-height: 1.05;
+      color: var(--dark); position: relative; z-index: 1;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .page-hero h1 em { font-style: italic; color: var(--gold); }
+    .page-hero-sub {
+      font-size: 1.25rem; color: var(--text-mid); margin-top: 1.25rem;
+      max-width: 560px; line-height: 1.8;
+      animation: fadeUp 0.7s 0.2s ease both;
+      position: relative; z-index: 1;
+    }
+
+    /* TIMELINE */
+    .timeline-section {
+      padding: 6rem 6vw;
+      background: white;
+    }
+    .section-label {
+      font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold);
+      display: block; margin-bottom: 0.5rem;
+    }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900;
+      color: var(--dark); margin-bottom: 3rem;
+    }
+
+    .timeline { position: relative; max-width: 900px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 140px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--gold-pale), var(--gold), var(--gold-pale));
+    }
+    .tl-item {
+      display: grid; grid-template-columns: 140px 1fr;
+      gap: 2rem; margin-bottom: 3rem;
+      opacity: 0; transform: translateX(-20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+
+    .tl-date {
+      text-align: right; padding-right: 2rem; padding-top: 0.25rem;
+      font-family: 'Playfair Display', serif; font-size: 1rem; font-style: italic;
+      color: var(--gold); font-weight: 700; position: relative;
+    }
+    .tl-date::after {
+      content: ''; position: absolute; right: -9px; top: 8px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--gold); border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+    .tl-body {
+      padding-top: 0.1rem;
+    }
+    .tl-title {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700;
+      color: var(--dark); margin-bottom: 0.75rem;
+    }
+    .name-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .chip {
+      font-family: 'Cormorant Garamond', serif; font-size: 1rem;
+      color: var(--brown); background: var(--cream);
+      padding: 0.3rem 0.9rem;
+      border: 1px solid rgba(184,134,42,0.25);
+      transition: all 0.25s; cursor: default;
+    }
+    .chip:hover { background: var(--gold); color: white; border-color: var(--gold); transform: translateY(-2px); }
+
+    /* PILLARS */
+    .pillars-section {
+      padding: 6rem 6vw;
+      background: var(--cream);
+    }
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.25rem; margin-top: 2.5rem;
+    }
+    .pillar {
+      background: white;
+      border-left: 4px solid var(--gold);
+      padding: 1.25rem 1.5rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-style: italic;
+      color: var(--dark);
+      transition: all 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .pillar::after {
+      content: '⚜';
+      position: absolute; right: 0.75rem; bottom: 0.5rem;
+      font-style: normal; font-size: 0.9rem; color: rgba(184,134,42,0.2);
+      font-family: sans-serif;
+    }
+    .pillar:hover {
+      background: var(--gold); color: white;
+      transform: translateX(4px);
+      box-shadow: 4px 0 20px rgba(184,134,42,0.25);
+    }
+    .pillar:hover::after { color: rgba(255,255,255,0.4); }
+
+    /* HERITAGE TEXT */
+    .heritage-section {
+      padding: 6rem 6vw;
+      background: white;
+    }
+    .heritage-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; max-width: 1100px; margin: 0 auto;
+      align-items: start;
+    }
+    .heritage-text { font-size: 1.15rem; line-height: 1.9; color: var(--text-mid); }
+    .heritage-text p { margin-bottom: 1.5rem; }
+    .pull-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; font-style: italic; font-weight: 700;
+      color: var(--gold); line-height: 1.4;
+      border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+      padding: 2rem 0; margin: 2rem 0;
+    }
+
+    .stat-stack { display: flex; flex-direction: column; gap: 2rem; }
+    .stat-card {
+      background: var(--cream);
+      border-top: 3px solid var(--gold);
+      padding: 2rem 2rem 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(184,134,42,0.15); }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 900; color: var(--gold);
+    }
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--text-mid); margin-top: 0.25rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark); color: rgba(255,255,255,0.6);
+      padding: 3rem 6vw; text-align: center;
+    }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--gold-pale); margin-bottom: 0.5rem; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; list-style: none; margin: 1rem 0; }
+    .footer-links a { font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold-pale); }
+    .footer-copy { font-size: 0.85rem; margin-top: 1rem; }
+    .footer-hash { color: var(--gold); font-size: 0.85rem; margin-top: 0.4rem; }
+
+    /* ANIMS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity:0; transform:translateY(25px); transition: opacity 0.7s, transform 0.7s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media (max-width: 900px) {
+      .timeline::before { left: 0; }
+      .timeline { padding-left: 1.5rem; }
+      .tl-item { grid-template-columns: 1fr; }
+      .tl-date { text-align: left; padding-right: 0; }
+      .tl-date::after { left: -1.8rem; right: auto; }
+      .heritage-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">DAGUMAN REPUBLIC</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About & Origin</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Our Family Origin & Legacy</p>
+  <h1>About &amp; <em>Origin</em></h1>
+  <p class="page-hero-sub">From the highlands to the generations of today — the Daguman story is one of resilience, honour, and unbreakable kinship.</p>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <span class="section-label">Generational Legacy</span>
+  <h2 class="section-heading">The Daguman Lineage</h2>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-date">First<br>Generation<br><small style="font-size:0.8rem; color:var(--text-light);">1900–2000</small></div>
+      <div class="tl-body">
+        <h3 class="tl-title">The Founders</h3>
+        <div class="name-chips">
+          <span class="chip">Salvador Daguam</span>
+          <span class="chip">Manuel Daguman</span>
+          <span class="chip">Cayetano Daguman</span>
+          <span class="chip">Timoteo Daguman</span>
+          <span class="chip">Lucas Daguman</span>
+          <span class="chip">Teodolo Dag-uman</span>
+          <span class="chip">Candida Daguman</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Second<br>Generation</div>
+      <div class="tl-body">
+        <h3 class="tl-title">The Stewards</h3>
+        <div class="name-chips">
+          <span class="chip">Fortunato Daguman</span>
+          <span class="chip">Donato Daguman</span>
+          <span class="chip">Alejandro Daguman</span>
+          <span class="chip">Cerila Daguman</span>
+          <span class="chip">Donato O. Daguman</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">The<br>Pillars</div>
+      <div class="tl-body">
+        <h3 class="tl-title">Pillars of the Clan</h3>
+        <div class="name-chips">
+          <span class="chip">Miguel Daguman</span>
+          <span class="chip">Atty Hugo Daguman Sr.</span>
+          <span class="chip">Florintino Daguman</span>
+          <span class="chip">Serpio Dag-uman</span>
+          <span class="chip">Atty Jose Daguman Sr.</span>
+          <span class="chip">Mr Hugo Daguman II</span>
+          <span class="chip">Fermin Daguman</span>
+          <span class="chip">Sonny Daguman</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS GRID -->
+<section class="pillars-section reveal">
+  <span class="section-label">Pillars of the Clan</span>
+  <h2 class="section-heading">Those Who Built the Legacy</h2>
+  <div class="pillars-grid">
+    <div class="pillar">Miguel Daguman</div>
+    <div class="pillar">Atty Hugo Daguman Sr.</div>
+    <div class="pillar">Florintino Daguman</div>
+    <div class="pillar">Serpio Dag-uman</div>
+    <div class="pillar">Atty Jose Daguman Sr.</div>
+    <div class="pillar">Mr Hugo Daguman II</div>
+    <div class="pillar">Fermin Daguman</div>
+    <div class="pillar">Sonny Daguman</div>
+  </div>
+</section>
+
+<!-- HERITAGE TEXT + STATS -->
+<section class="heritage-section">
+  <div class="heritage-inner">
+    <div class="heritage-text reveal">
+      <span class="section-label">The Daguman Heritage</span>
+      <h2 class="section-heading" style="font-size:2rem; margin-bottom:1.5rem;">Our Story</h2>
+      <p>Originating from the northern highlands, the Daguman Republic traces its roots to visionary leaders who cultivated unity, justice, and community. The First Generation — Salvador Daguam, Manuel Daguman, Cayetano Daguman, Timoteo Daguman, Lucas Daguman, and Teodolo Dag-uman — laid the foundation of resilience and kinship.</p>
+      <div class="pull-quote">"Our roots run deep, our story moves forward."</div>
+      <p>Through generations, the Daguman name became synonymous with honour. Today, the clan association continues to gather members worldwide, celebrating our shared ancestry, upholding traditions, and forging new paths for generations to come.</p>
+      <p>The legacy entrusted to us by our ancestors is not merely a name — it is a covenant. As stewards of the Daguman heritage, every member carries forward the spirit of unity, justice, and kinship that defined our forebears.</p>
+    </div>
+    <div class="stat-stack reveal" style="transition-delay:0.2s">
+      <div class="stat-card">
+        <div class="stat-number">100+</div>
+        <div class="stat-label">Years of Legacy</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3+</div>
+        <div class="stat-label">Generations Strong</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Chapters Nationwide</div>
+      </div>
+      <a href="membership.html" style="display:block; text-align:center; background:var(--gold); color:white; font-family:'Montserrat',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; text-decoration:none; padding:1rem 2rem; transition:all 0.3s;" onmouseover="this.style.background='#D4A030'" onmouseout="this.style.background='#B8862A'">
+        Join the Clan →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-brand">Daguman Republic</p>
+  <p style="font-style:italic; margin:0.25rem 0 1rem;">"Our Roots Run Deep, Our Love Runs Deeper"</p>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Daguman Republic Clan Association Inc. — All Rights Reserved.</p>
+  <p class="footer-hash">#DDRYourLifeOurStory | One Clan, One Spirit</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal, .tl-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

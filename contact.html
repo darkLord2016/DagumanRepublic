@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daguman Republic — Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ivory:#FDFAF4; --cream:#F5EFE0; --warm:#EDE3CC;
+      --gold:#B8862A; --gold-rich:#D4A030; --gold-pale:#E8C97A;
+      --brown:#6B4E1F; --dark:#2C1F0E; --red:#8B1A1A;
+      --text:#3D2B10; --text-mid:#7A6040; --text-light:#A08050;
+    }
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
+    body { background:var(--ivory); color:var(--text); font-family:'Cormorant Garamond',Georgia,serif; overflow-x:hidden; }
+
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      height:70px; display:flex; align-items:center; justify-content:space-between;
+      padding:0 6vw; background:rgba(253,250,244,0.95); backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(184,134,42,0.2);
+    }
+    .nav-logo { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:900; color:var(--gold); text-decoration:none; letter-spacing:0.08em; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { font-family:'Montserrat',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-mid); text-decoration:none; transition:color 0.25s; position:relative; }
+    .nav-links a.active, .nav-links a:hover { color:var(--gold); }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:1.5px; background:var(--gold-rich); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+    .nav-links a.active::after, .nav-links a:hover::after { transform:scaleX(1); }
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: 140px 6vw 80px;
+      background: linear-gradient(135deg, #FDFAF4 0%, #F0E6CC 100%);
+      position:relative; overflow:hidden;
+    }
+    .page-hero::before {
+      content:'';
+      position:absolute; bottom:-100px; left:-100px;
+      width:500px; height:500px; border-radius:50%;
+      border: 80px solid rgba(184,134,42,0.06);
+    }
+    .page-hero::after {
+      content:'';
+      position:absolute; top:-50px; right:-50px;
+      width:300px; height:300px; border-radius:50%;
+      border: 50px solid rgba(184,134,42,0.08);
+    }
+    .page-hero-eyebrow {
+      font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700;
+      letter-spacing:0.5em; text-transform:uppercase; color:var(--gold-rich);
+      display:flex; align-items:center; gap:1rem; margin-bottom:1rem;
+      animation: fadeUp 0.7s ease both;
+    }
+    .page-hero-eyebrow::before { content:''; width:40px; height:1px; background:var(--gold-rich); }
+    .page-hero h1 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.5rem,7vw,5.5rem); font-weight:900; line-height:1.05;
+      color:var(--dark); position:relative; z-index:1;
+      animation: fadeUp 0.7s 0.1s ease both;
+    }
+    .page-hero h1 em { font-style:italic; color:var(--gold); }
+    .page-hero-sub {
+      font-size:1.25rem; color:var(--text-mid); margin-top:1.25rem;
+      max-width:560px; line-height:1.8;
+      animation: fadeUp 0.7s 0.2s ease both; position:relative; z-index:1;
+    }
+
+    /* CONTACT MAIN */
+    .contact-section { padding: 6rem 6vw; background: white; }
+    .contact-grid {
+      display:grid; grid-template-columns:1fr 1.4fr;
+      gap:6rem; max-width:1100px; margin:0 auto;
+    }
+
+    /* INFO SIDE */
+    .contact-info-block { display:flex; flex-direction:column; gap:2rem; }
+
+    .info-card {
+      display:flex; gap:1.25rem; align-items:flex-start;
+      padding:1.5rem; border:1px solid rgba(184,134,42,0.15);
+      background:var(--ivory);
+      transition:all 0.3s;
+    }
+    .info-card:hover { border-color:var(--gold); background:var(--cream); transform:translateX(4px); }
+
+    .info-icon {
+      width:48px; height:48px; flex-shrink:0;
+      background: linear-gradient(135deg, var(--gold-pale), var(--gold));
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.25rem; color:white;
+    }
+    .info-label {
+      font-family:'Montserrat',sans-serif; font-size:0.6rem; font-weight:700;
+      letter-spacing:0.3em; text-transform:uppercase; color:var(--gold);
+      margin-bottom:0.3rem; display:block;
+    }
+    .info-value { font-size:1.05rem; color:var(--text); line-height:1.6; }
+    .info-value a { color:var(--brown); text-decoration:none; }
+    .info-value a:hover { color:var(--gold); }
+
+    .social-row { display:flex; gap:1rem; margin-top:0.5rem; }
+    .social-pill {
+      font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700;
+      letter-spacing:0.15em; text-transform:uppercase;
+      padding:0.5rem 1.25rem;
+      background: var(--cream); color:var(--brown);
+      border:1px solid rgba(184,134,42,0.3);
+      text-decoration:none; transition:all 0.25s;
+    }
+    .social-pill:hover { background:var(--gold); color:white; border-color:var(--gold); }
+
+    .contact-quote {
+      font-family:'Playfair Display',serif;
+      font-size:1.3rem; font-style:italic; font-weight:700;
+      color:var(--gold); line-height:1.5;
+      border-left:3px solid var(--gold); padding-left:1.25rem;
+    }
+
+    /* FORM SIDE */
+    .form-heading {
+      font-family:'Playfair Display',serif; font-size:2rem; font-weight:900;
+      color:var(--dark); margin-bottom:2rem;
+    }
+    .form-heading em { font-style:italic; color:var(--gold); }
+
+    .contact-form { display:flex; flex-direction:column; gap:1.5rem; }
+
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; }
+
+    .form-group { display:flex; flex-direction:column; gap:0.5rem; }
+    .form-label {
+      font-family:'Montserrat',sans-serif; font-size:0.62rem; font-weight:700;
+      letter-spacing:0.25em; text-transform:uppercase; color:var(--text-light);
+    }
+    .form-input, .form-select, .form-textarea {
+      background:var(--ivory); border:1px solid rgba(184,134,42,0.2);
+      border-bottom:2px solid rgba(184,134,42,0.3);
+      color:var(--text); font-family:'Cormorant Garamond',serif; font-size:1.05rem;
+      padding:0.75rem 1rem; outline:none; transition:all 0.3s; width:100%;
+      appearance: none;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color:var(--gold); border-bottom-color:var(--gold-rich);
+      background:var(--cream);
+      box-shadow:0 4px 15px rgba(184,134,42,0.1);
+    }
+    .form-textarea { resize:vertical; min-height:140px; }
+
+    .form-submit {
+      font-family:'Montserrat',sans-serif; font-size:0.72rem; font-weight:700;
+      letter-spacing:0.25em; text-transform:uppercase;
+      padding:1.1rem 3rem; background:var(--gold); color:white;
+      border:2px solid var(--gold); cursor:pointer; transition:all 0.3s;
+      align-self:flex-start;
+    }
+    .form-submit:hover {
+      background:var(--gold-rich); border-color:var(--gold-rich);
+      transform:translateY(-3px); box-shadow:0 8px 25px rgba(184,134,42,0.35);
+    }
+
+    .form-note { font-size:0.9rem; color:var(--text-light); font-style:italic; }
+
+    /* SUCCESS STATE */
+    .form-success {
+      display:none; text-align:center; padding:3rem;
+      background:var(--cream); border:1px solid rgba(184,134,42,0.3);
+    }
+    .form-success.show { display:block; }
+    .form-success-icon { font-size:3rem; margin-bottom:1rem; }
+    .form-success h3 { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--gold); margin-bottom:0.75rem; }
+    .form-success p { font-size:1.1rem; color:var(--text-mid); }
+
+    /* MAP STRIP */
+    .locations-section { padding:5rem 6vw; background:var(--cream); }
+    .section-label { font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.5em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:0.5rem; }
+    .section-heading { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.5rem); font-weight:900; color:var(--dark); margin-bottom:2.5rem; }
+
+    .locations-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1.25rem; }
+    .location-card {
+      background:white; padding:2rem 1.5rem;
+      border-top:3px solid var(--gold);
+      transition:all 0.3s;
+    }
+    .location-card:hover { transform:translateY(-5px); box-shadow:0 10px 30px rgba(184,134,42,0.15); }
+    .location-flag { font-size:1.5rem; margin-bottom:0.75rem; }
+    .location-name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--dark); margin-bottom:0.3rem; }
+    .location-desc { font-size:0.95rem; color:var(--text-light); }
+
+    footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:3rem 6vw; text-align:center; }
+    .footer-brand { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:900; color:var(--gold-pale); margin-bottom:0.5rem; }
+    .footer-links { display:flex; justify-content:center; gap:2rem; list-style:none; margin:1rem 0; }
+    .footer-links a { font-family:'Montserrat',sans-serif; font-size:0.65rem; font-weight:600; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.5); text-decoration:none; transition:color 0.2s; }
+    .footer-links a:hover { color:var(--gold-pale); }
+    .footer-copy { font-size:0.85rem; margin-top:1rem; }
+    .footer-hash { color:var(--gold); font-size:0.85rem; margin-top:0.4rem; }
+
+    @keyframes fadeUp { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
+    .reveal { opacity:0; transform:translateY(25px); transition:opacity 0.7s, transform 0.7s; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media (max-width:900px) {
+      .contact-grid { grid-template-columns:1fr; gap:3rem; }
+      .form-row { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">DAGUMAN REPUBLIC</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About & Origin</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <p class="page-hero-eyebrow">Connect With the Republic</p>
+  <h1>Get in <em>Touch</em></h1>
+  <p class="page-hero-sub">"Our Roots Run Deep, Our Love Runs Deeper" — Send us a message. We'd love to hear from family and friends.</p>
+</div>
+
+<!-- CONTACT MAIN -->
+<section class="contact-section">
+  <div class="contact-grid">
+
+    <!-- INFO -->
+    <div class="contact-info-block reveal">
+      <div class="info-card">
+        <div class="info-icon">✉</div>
+        <div>
+          <span class="info-label">Official Email</span>
+          <div class="info-value"><a href="mailto:Dagumanrepublic@gmail.com">Dagumanrepublic@gmail.com</a></div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">⌂</div>
+        <div>
+          <span class="info-label">Republic Halls</span>
+          <div class="info-value">
+            Republic Hall, Daguman Heritage Centre<br>
+            Valenzuela City · Manila Liaison<br>
+            Mindanao · Cebu City
+          </div>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon">◎</div>
+        <div>
+          <span class="info-label">Social Media</span>
+          <div class="info-value" style="margin-bottom:0.75rem;">Follow our journey and connect online</div>
+          <div class="social-row">
+            <a href="https://fb.com/DagumanRepublicOfficial" target="_blank" class="social-pill">Facebook</a>
+            <a href="https://instagram.com/daguman.republic" target="_blank" class="social-pill">Instagram</a>
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="contact-quote">
+        "Our Roots Run Deep,<br>Our Love Runs Deeper."
+      </blockquote>
+    </div>
+
+    <!-- FORM -->
+    <div class="reveal" style="transition-delay:0.15s">
+      <h2 class="form-heading">Send a <em>Message</em></h2>
+
+      <div class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">First Name</label>
+            <input type="text" class="form-input" placeholder="Given name" id="fname"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Last Name</label>
+            <input type="text" class="form-input" placeholder="Family name" id="lname"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="your@email.com" id="email"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Purpose</label>
+          <select class="form-select" id="purpose">
+            <option value="" disabled selected>Select a purpose…</option>
+            <option>Membership Inquiry</option>
+            <option>Heritage Research</option>
+            <option>General Message</option>
+            <option>Event Coordination</option>
+            <option>Media / Press</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Your Message</label>
+          <textarea class="form-textarea" placeholder="Write your message here…" id="message"></textarea>
+        </div>
+        <button type="button" class="form-submit" onclick="submitForm()">Send Message →</button>
+        <p class="form-note">✦ We respond within 2–3 days. Daguman Republic honours every inquiry.</p>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">⚜️</div>
+        <h3>Message Received</h3>
+        <p>Thank you for reaching out to the Daguman Republic.<br>We will respond within 2–3 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section class="locations-section reveal">
+  <span class="section-label">Where We Are</span>
+  <h2 class="section-heading">Our Chapters</h2>
+  <div class="locations-grid">
+    <div class="location-card">
+      <div class="location-flag">🏛️</div>
+      <div class="location-name">Heritage Centre</div>
+      <div class="location-desc">Republic Hall, Valenzuela City — Our main home</div>
+    </div>
+    <div class="location-card">
+      <div class="location-flag">🌆</div>
+      <div class="location-name">Manila Liaison</div>
+      <div class="location-desc">Central coordination office for Metro Manila</div>
+    </div>
+    <div class="location-card">
+      <div class="location-flag">🌿</div>
+      <div class="location-name">Mindanao Chapter</div>
+      <div class="location-desc">Serving the southern highlands and highlands kin</div>
+    </div>
+    <div class="location-card">
+      <div class="location-flag">🌊</div>
+      <div class="location-name">Cebu City</div>
+      <div class="location-desc">Visayas regional chapter and meeting point</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="footer-brand">Daguman Republic</p>
+  <p style="font-style:italic; margin:0.25rem 0 1rem;">"Our Roots Run Deep, Our Love Runs Deeper"</p>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="membership.html">Membership</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p style="font-size:0.82rem; color:rgba(255,255,255,0.4); margin-top:0.75rem; max-width:700px; margin-left:auto; margin-right:auto;">
+    Honouring our First Generation ancestors: Salvador Daguam, Manuel Daguman, Cayetano Daguman, Timoteo Daguman, Lucas Daguman, Teodolo Dag-uman — and all who built our legacy.
+  </p>
+  <p class="footer-copy">© 2025 Daguman Republic Clan Association Inc. — All Rights Reserved.</p>
+  <p class="footer-hash">#DDRYourLifeOurStory | One Clan, One Spirit</p>
+</footer>
+
+<script>
+  function submitForm() {
+    const fname = document.getElementById('fname').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+    if (!fname || !email || !message) {
+      alert('Please fill in your name, email, and message before sending.');
+      return;
+    }
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').classList.add('show');
+    window.scrollTo({ top: document.getElementById('formSuccess').offsetTop - 100, behavior: 'smooth' });
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
